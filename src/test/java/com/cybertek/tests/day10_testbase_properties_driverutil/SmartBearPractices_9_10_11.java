@@ -8,7 +8,10 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
 public class SmartBearPractices_9_10_11 extends TestBase {
 
@@ -19,8 +22,20 @@ public class SmartBearPractices_9_10_11 extends TestBase {
     3.Assert it is deleted from the list
      */
     @Test
-    public void p9_delete_order_task(){
-        driver.get("http://secure.smartbearsoftware.com/samples/testcomplete12/WebOrders/login.aspx");
+    public void p9_delete_order_task() throws IOException {
+        //Creating properties object to be able to read properties file
+        Properties properties = new Properties();
+
+        //Opening the file in JVM memory using FileInputStream
+        FileInputStream file = new FileInputStream("configuration.properties");
+
+        //Loading the file into CONFIGURATION PROPERTIES
+        properties.load(file);
+
+        //-->URL FROM CONFIGURATION PROPERTIES
+        String url = properties.getProperty("smartbearUrl");
+
+        driver.get(url);
         SmartBearUtilities.loginToSmartBear(driver);
         //Locate the checkbox for 'Mark Smith' and click to it
         //WebElement markSmithCheckBox = driver.findElement(By.xpath("//td[.='Mark Smith']/preceding-sibling::td[1]"));
