@@ -33,13 +33,20 @@ public class Bitrix {
 
     @Test
     public void addMentionButton(){
+        //Given I am on the "Activity Stream"
+        //When I click on the "Message" button
         driver.findElement(By.xpath("(//span[.='Message'])[1]")).click();
+
+        //Then I should be able to see the blank message page
         BrowserUtils.wait(2);
+        //When I hover to the bottom of the blank message page
+        //Then I should be able to locate "Add Mention" feature
         driver.findElement(By.xpath("(//span[@title='Add mention'])[1]")).click();
 
+        //And I should be able to click "Add Mention"
         driver.findElement(By.xpath("(//div[@class='bx-finder-box-item-t7-name'])[1]")).click();
         BrowserUtils.wait(2);
-
+        /*
         //driver.findElement(By.xpath("(//a[@class='feed-add-destination-link'])[1]")).click();
        // driver.findElement(By.xpath("(//div[@class='bx-finder-box-item-t7-name'])[2]")).click();
 
@@ -54,8 +61,22 @@ public class Bitrix {
        // String actualResult = contactAdded.getText();
 
        // Assert.assertEquals(actualResult,expectedResult,"Contact Add Mention Verification FAILED!!");
+        */
 
 
+        //Then I should be able to see list of contacts
+        //When I select a contact from the list of contacts
+        //Then I should be able to add the selected contacts to "Add Mention"
+        driver.findElement(By.xpath("//button[@id = 'blog-submit-button-save']")).click();
+
+        WebElement AddMention = driver.findElement(By.xpath("(//a[@class='feed-add-post-destination-new'])[1]"));
+        //System.out.println(AddMention);
+        BrowserUtils.wait(3);
+        String actualValue = AddMention.getText();
+        System.out.println(actualValue);
+        String expectedValue = "hr75@cybertekschool.com";
+        //asserting the expected value with the actual value
+        Assert.assertEquals(actualValue,expectedValue,"Add Mention verification FAILED!!!");
 
 
     }
